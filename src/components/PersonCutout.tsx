@@ -1,113 +1,60 @@
-import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
 import React from 'react';
+import { AbsoluteFill, Img, spring, staticFile, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
+import { FONT_DISPLAY, SPRINGS } from '../theme/tokens';
 
-interface PersonCutoutProps {
+export const PersonCutout: React.FC<{
   imageSrc: string;
   nameLabel: string;
   title: string;
-  rotation?: number;
   accentColor: string;
-}
-
-export const PersonCutout: React.FC<PersonCutoutProps> = ({
-  imageSrc,
-  nameLabel,
-  title,
-  rotation = 0,
-  accentColor,
-}) => {
+}> = ({ imageSrc, nameLabel, title, accentColor }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // High-mass smooth entry spring
-  const entrySpring = spring({
-    frame,
-    fps,
-    config: { mass: 1.2, stiffness: 45, damping: 20 },
-  });
-
-  const scale = interpolate(entrySpring, [0, 1], [0.92, 1]);
-  const opacity = interpolate(entrySpring, [0, 0.4], [0, 1]);
-
-  // Glow pulse animation
-  const glowPulse = interpolate(Math.sin(frame / 10), [-1, 1], [15, 35]);
+  const enter = spring({ frame, fps, config: SPRINGS.rostrum });
+  const y = interpolate(enter, [0, 1], [60, 0]);
+  const opacity = interpolate(enter, [0, 1], [0, 1]);
 
   return (
-    <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <div
-        style={{
-          position: 'relative',
-          transform: `scale(${scale}) rotate(${rotation}deg)`,
-          opacity,
-        }}
-      >
-        {/* Background Glow Aura */}
-        <div style={{
-          position: 'absolute',
-          inset: '-20px',
-          background: accentColor,
-          filter: `blur(${glowPulse}px)`,
-          opacity: 0.15,
-          borderRadius: '20px',
-        }} />
-
-        <img
-          src={imageSrc}
-          alt={nameLabel}
+    <AbsoluteFill style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+      <div style={{
+        position: 'relative',
+        transform: `translateY(${y}px)`,
+        opacity,
+        width: 760,
+      }}>
+        {/* Baked grayscale halftone, tinted live via multiply so it tracks theme.accentColor */}
+        <Img
+          src={staticFile(imageSrc)}
           style={{
-            height: '650px',
-            borderRadius: '4px',
-            border: '12px solid white',
-            boxShadow: '0px 40px 80px rgba(0,0,0,0.6)',
-            zIndex: 2,
-            position: 'relative',
+            width: '100%',
+            display: 'block',
+            filter: 'grayscale(1) contrast(1.3)',
+            mixBlendMode: 'luminosity',
           }}
         />
-        
-        {/* Cinematic Accent Outline */}
-        <svg style={{ position: 'absolute', top: -15, left: -15, width: 'calc(100% + 30px)', height: 'calc(100% + 30px)', pointerEvents: 'none', zIndex: 1 }}>
-          <rect
-            x="0" y="0" width="100%" height="100%"
-            fill="none"
-            stroke={accentColor}
-            strokeWidth="4"
-            style={{ filter: `drop-shadow(0 0 10px ${accentColor})` }}
-          />
-        </svg>
-
-        {/* Investigative Lower Third */}
         <div style={{
-          position: 'absolute', 
-          bottom: '40px', 
-          left: '-60px',
-          backgroundColor: '#111111', 
-          color: '#fff', 
-          padding: '25px 40px',
-          zIndex: 10,
-          boxShadow: '20px 20px 40px rgba(0,0,0,0.4)',
-          borderLeft: `8px solid ${accentColor}`,
-          minWidth: '400px',
+          position: 'absolute',
+          inset: 0,
+          background: accentColor,
+          mixBlendMode: 'multiply',
+          opacity: 0.85,
+        }} />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(180deg, transparent 55%, rgba(11,6,32,0.9) 100%)',
+        }} />
+
+        {/* Name plate */}
+        <div style={{
+          position: 'absolute',
+          bottom: 32,
+          left: 32,
+          fontFamily: FONT_DISPLAY,
         }}>
-          <div style={{ 
-            fontSize: '40px', 
-            fontWeight: 900, 
-            fontFamily: 'Montserrat, sans-serif', 
-            textTransform: 'uppercase',
-            letterSpacing: '-1px'
-          }}>
-            {nameLabel}
-          </div>
-          <div style={{ 
-            fontSize: '18px', 
-            color: accentColor, 
-            textTransform: 'uppercase', 
-            fontFamily: '"JetBrains Mono", monospace',
-            marginTop: '5px',
-            letterSpacing: '2px',
-            opacity: 0.8
-          }}>
-            {title}
-          </div>
+          <div style={{ fontSize: 30, fontWeight: 800, color: '#FFFFFF' }}>{nameLabel}</div>
+          <div style={{ fontSize: 18, fontWeight: 500, color: accentColor, marginTop: 4 }}>{title}</div>
         </div>
       </div>
     </AbsoluteFill>
