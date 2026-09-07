@@ -4,6 +4,8 @@ import { HelloWorld } from "./HelloWorld";
 import { Logo } from "./HelloWorld/Logo";
 import { VoiceoverScene } from "./compositions/VoiceoverScene";
 import { Scene01_Intro } from './scenes/Scene01_Intro';
+import { Scene02_Stakes } from './scenes/Scene02_Stakes';
+// ...inside <Compositions>:
 // Each <Composition> is an entry in the sidebar!
 
 export const RemotionRoot: React.FC = () => {
@@ -41,6 +43,16 @@ export const RemotionRoot: React.FC = () => {
   id="Scene01Intro"
   component={Scene01_Intro}
   durationInFrames={534} // 17.8s hook, at 30fps — adjust once you preview
+  fps={30}
+  width={1920}
+  height={1080}
+/>
+
+      
+<Composition
+  id="Scene02Stakes"
+  component={Scene02_Stakes}
+  durationInFrames={750} // segments 5–9 span ~25s at 30fps — adjust once you preview
   fps={30}
   width={1920}
   height={1080}
