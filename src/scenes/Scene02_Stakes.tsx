@@ -92,7 +92,7 @@ export const Scene02_Stakes: React.FC = () => {
       {/* Dario cutout, anchored bottom-right so text/chips have room on the left */}
       <div style={{ position: 'absolute', right: 40, bottom: 0, width: 620 }}>
         <PersonCutout
-          imageSrc="scenes/scene-02/dario-cutout-halftone.png"
+          imageSrc="scenes/scene-02/dario-cutout.png"
           nameLabel="Dario Amodei"
           title="Physicist"
           accentColor={theme.accentColor}
