@@ -1,7 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  server: { fs: { allow: ['..'] } }, // lets Vite reach into ../src for your scenes
+  resolve: {
+    alias: {
+      remotion: path.resolve(__dirname, 'node_modules/remotion'),
+    },
+  },
+  server: { fs: { allow: ['..'] } },
 });
