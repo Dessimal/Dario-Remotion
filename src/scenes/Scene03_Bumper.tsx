@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, Img, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
-import { AuroraBackground } from '../components/AuroraBackground';
+//import { AuroraBackground } from '../components/AuroraBackground';
 import { THEME, FONT_DISPLAY, FONT_BODY, SPRINGS, msToFrame } from '../theme/tokens';
 import transcriptData from '../data/transcript.json';
 
@@ -68,7 +68,6 @@ const SubscribeButton: React.FC<{ delayFrames: number }> = ({ delayFrames }) => 
   const opacity = interpolate(enter, [0, 1], [0, 1]);
   const scale = interpolate(enter, [0, 1], [0.85, 1]);
 
-  // Gentle continuous pulse once revealed, so it reads as a call to action.
   const pulse = 1 + Math.sin(Math.max(frame, 0) / 10) * 0.03;
 
   return (
@@ -80,12 +79,12 @@ const SubscribeButton: React.FC<{ delayFrames: number }> = ({ delayFrames }) => 
       alignItems: 'center',
       padding: '18px 44px',
       borderRadius: 999,
-      background: theme.accentColor,
-      color: '#140B2E',
+      background: '#FF0000',
+      color: '#FFFFFF',
       fontFamily: FONT_DISPLAY,
       fontWeight: 800,
       fontSize: 26,
-      boxShadow: `0 20px 60px ${theme.accentColor}55`,
+      boxShadow: '0 20px 60px rgba(255,0,0,0.4)',
     }}>
       Subscribe
     </div>
@@ -103,7 +102,7 @@ export const Scene03_Bumper: React.FC = () => {
 
   return (
     <AbsoluteFill>
-      <AuroraBackground from={theme.bgFrom} to={theme.bgTo} />
+      <AbsoluteFill style={{ backgroundColor: '#000000' }} />
 
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
         <LogoReveal />
