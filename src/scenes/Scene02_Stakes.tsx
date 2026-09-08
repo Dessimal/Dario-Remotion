@@ -109,13 +109,21 @@ export const Scene02_Stakes: React.FC = () => {
       })}
 
       {/* Stakes chips, stack up on the left as each is named */}
-      <div style={{ position: 'absolute', left: 80, bottom: 140, display: 'flex', flexDirection: 'column' }}>
-        {STAKE_CHIPS.map((chip, i) => (
-          <Sequence key={chip.label} from={chipTriggerFrame(chip.triggerId)} layout="none">
-            <GlassChip label={chip.label} delayFrames={0} index={i} />
-          </Sequence>
-        ))}
-      </div>
+      <div style={{
+  position: 'absolute',
+  left: '50%',
+  bottom: 220,
+  transform: 'translateX(-50%)',
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 16,
+}}>
+  {STAKE_CHIPS.map((chip, i) => (
+    <Sequence key={chip.label} from={chipTriggerFrame(chip.triggerId)} layout="none">
+      <GlassChip label={chip.label} delayFrames={0} index={i} />
+    </Sequence>
+  ))}
+</div>
 
       <AbsoluteFill style={{
         background: 'radial-gradient(circle, rgba(11,6,32,0) 40%, rgba(11,6,32,0.6) 100%)',
