@@ -90,14 +90,12 @@ export const Scene02_Stakes: React.FC = () => {
       <AuroraBackground from={theme.bgFrom} to={theme.bgTo} />
 
       {/* Dario cutout, anchored bottom-right so text/chips have room on the left */}
-     <div style={{ position: 'absolute', top: 0, right: 40, bottom: 0, width: 620 }}> 
-        <PersonCutout
-          imageSrc="scenes/scene-02/dario-cutout.png"
-          nameLabel="Dario Amodei"
-          title="Physicist"
-          accentColor={theme.accentColor}
-        />
-      </div>
+     <PersonCutout
+  imageSrc="scenes/scene-02/dario-cutout.png"
+  nameLabel="Dario Amodei"
+  title="Physicist"
+  accentColor={theme.accentColor}
+/>
 
       {/* Voiceover lines, sequenced */}
       {stakesSegments.map((seg) => {
