@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Sequence, spring, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
+import { AbsoluteFill, Audio, Sequence, spring, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
 import { AuroraBackground } from '../components/AuroraBackground';
 import { PersonCutout } from '../components/PersonCutout';
 import { THEME, FONT_DISPLAY, FONT_BODY, SPRINGS, msToFrame } from '../theme/tokens';
@@ -87,6 +87,7 @@ export const Scene02_Stakes: React.FC = () => {
 
   return (
     <AbsoluteFill>
+      <Audio src={staticFile('audio/dariovoiceover.mp3')} startFrom={msToFrame(sceneStart)} />
       <AuroraBackground from={theme.bgFrom} to={theme.bgTo} />
 
       {/* Dario cutout, anchored bottom-right so text/chips have room on the left */}
