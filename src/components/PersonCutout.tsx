@@ -12,50 +12,34 @@ export const PersonCutout: React.FC<{
   const { fps } = useVideoConfig();
 
   const enter = spring({ frame, fps, config: SPRINGS.rostrum });
-  const y = interpolate(enter, [0, 1], [60, 0]);
+  const y = interpolate(enter, [0, 1], [40, 0]);
   const opacity = interpolate(enter, [0, 1], [0, 1]);
 
   return (
-    <AbsoluteFill style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+    <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
       <div style={{
         position: 'relative',
         transform: `translateY(${y}px)`,
         opacity,
-        width: 760,
+        width: 620,
+        borderRadius: 32,
+        overflow: 'hidden',
+        // Soft-fades the hard rectangular edges into the aurora background —
+        // stands in for a real cutout until this photo is background-removed.
+        WebkitMaskImage: 'radial-gradient(ellipse 82% 88% at center, black 55%, transparent 100%)',
+        maskImage: 'radial-gradient(ellipse 82% 88% at center, black 55%, transparent 100%)',
       }}>
-        {/* Baked grayscale halftone, tinted live via multiply so it tracks theme.accentColor */}
         <Img
           src={staticFile(imageSrc)}
-          style={{
-            width: '100%',
-            display: 'block',
-            filter: 'grayscale(1) contrast(1.3)',
-            mixBlendMode: 'luminosity',
-          }}
+          style={{ width: '100%', display: 'block', filter: 'grayscale(0.6) contrast(1.1)' }}
         />
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: accentColor,
-          mixBlendMode: 'multiply',
-          opacity: 0.85,
-        }} />
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(180deg, transparent 55%, rgba(11,6,32,0.9) 100%)',
-        }} />
+        <div style={{ position: 'absolute', inset: 0, background: accentColor, mixBlendMode: 'color', opacity: 0.45 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(11,6,32,0.85) 100%)' }} />
+      </div>
 
-        {/* Name plate */}
-        <div style={{
-          position: 'absolute',
-          bottom: 32,
-          left: 32,
-          fontFamily: FONT_DISPLAY,
-        }}>
-          <div style={{ fontSize: 30, fontWeight: 800, color: '#FFFFFF' }}>{nameLabel}</div>
-          <div style={{ fontSize: 18, fontWeight: 500, color: accentColor, marginTop: 4 }}>{title}</div>
-        </div>
+      <div style={{ marginTop: -8, opacity, textAlign: 'center', fontFamily: FONT_DISPLAY }}>
+        <div style={{ fontSize: 30, fontWeight: 800, color: '#FFFFFF' }}>{nameLabel}</div>
+        <div style={{ fontSize: 18, fontWeight: 500, color: accentColor, marginTop: 4 }}>{title}</div>
       </div>
     </AbsoluteFill>
   );
