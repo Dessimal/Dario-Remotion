@@ -90,7 +90,7 @@ export const Scene02_Stakes: React.FC = () => {
       <AuroraBackground from={theme.bgFrom} to={theme.bgTo} />
 
       {/* Dario cutout, anchored bottom-right so text/chips have room on the left */}
-      <div style={{ position: 'absolute', right: 40, bottom: 0, width: 620 }}>
+     <div style={{ position: 'absolute', top: 0, right: 40, bottom: 0, width: 620 }}> 
         <PersonCutout
           imageSrc="scenes/scene-02/dario-cutout.png"
           nameLabel="Dario Amodei"
@@ -113,7 +113,7 @@ export const Scene02_Stakes: React.FC = () => {
       {/* Stakes chips, stack up on the left as each is named */}
       <div style={{ position: 'absolute', left: 80, bottom: 140, display: 'flex', flexDirection: 'column' }}>
         {STAKE_CHIPS.map((chip, i) => (
-          <Sequence key={chip.label} from={chipTriggerFrame(chip.triggerId)}>
+          <Sequence key={chip.label} from={chipTriggerFrame(chip.triggerId)} layout="none">
             <GlassChip label={chip.label} delayFrames={0} index={i} />
           </Sequence>
         ))}
