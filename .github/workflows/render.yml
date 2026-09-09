@@ -1,0 +1,34 @@
+name: Render Scene
+
+on:
+  workflow_dispatch:
+    inputs:
+      composition_id:
+        description: 'Composition ID to render (e.g. Scene04Origins)'
+        required: true
+        default: 'Scene01Intro'
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chrome headless-shell for Remotion
+        run: npx remotion browser ensure
+
+      - name: Render video
+        run: npx remotion render src/Root.tsx ${{ github.event.inputs.composition_id }} out/${{ github.event.inputs.composition_id }}.mp4
+
+      - name: Upload rendered MP4
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.composition_id }}
+          path: out/${{ github.event.inputs.composition_id }}.mp4
