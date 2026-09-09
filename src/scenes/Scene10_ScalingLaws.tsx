@@ -145,7 +145,7 @@ export const Scene10_ScalingLaws: React.FC = () => {
       <Audio src={staticFile('audio/dariovoiceover.mp3')} startFrom={msToFrame(sceneStart)} />
 
       <Img
-        src={staticFile('scenes/scene-10/background.png')}
+        src={staticFile('scenes/scene-10/background.jpeg')}
         style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute' }}
       />
       {/* Legibility scrim — background.png could be anything, so we protect the graph/captions */}
