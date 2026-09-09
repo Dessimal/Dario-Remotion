@@ -25,7 +25,7 @@ jobs:
         run: npx remotion browser ensure
 
       - name: Render video
-        run: npx remotion render src/Root.tsx ${{ github.event.inputs.composition_id }} out/${{ github.event.inputs.composition_id }}.mp4
+        run: npx remotion render src/index.ts ${{ github.event.inputs.composition_id }} out/${{ github.event.inputs.composition_id }}.mp4
 
       - name: Upload rendered MP4
         uses: actions/upload-artifact@v4
