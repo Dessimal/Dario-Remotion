@@ -7,7 +7,8 @@ import { Scene03_Bumper } from '../src/scenes/Scene03_Bumper';
 import { Scene04_Origins } from '../src/scenes/Scene04_Origins';
 
 import { Scene10_ScalingLaws } from '../src/scenes/Scene10_ScalingLaws';
-
+import { Scene11_ScalingPhilosophy } from '../src/scenes/Scene11_ScalingPhilosophy';
+// ...in SCENES object:
 
 const SCENES = {
   Scene01Intro: { component: Scene01_Intro, durationInFrames: 534 },
@@ -15,7 +16,8 @@ const SCENES = {
   Scene03Bumper: { component: Scene03_Bumper, durationInFrames: 450 }, 
   Scene04Origins: { component: Scene04_Origins, durationInFrames: 1055 }, 
   Scene10ScalingLaws: { component: Scene10_ScalingLaws, durationInFrames: 1694 }, // segments 62–75, ~56.5s at 30fps
-  
+  Scene11ScalingPhilosophy: { component: Scene11_ScalingPhilosophy, durationInFrames: 910 },
+
   // add each new scene here as we build it
 } as const;
 
