@@ -1,9 +1,10 @@
 import React from 'react';
 import { AbsoluteFill, Audio, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
 import { AuroraBackground } from '../components/AuroraBackground';
-import { THEME, FONT_DISPLAY, FONT_BODY, SPRINGS, msToFrame } from '../theme/tokens';
+import { THEME, FONT_DISPLAY, FONT_BODY, SPRINGS, msToFrame, GRAPH_YELLOW, GRAPH_WHITE } from '../theme/tokens';
 import { quadPoint } from '../utils/curves';
 import transcriptData from '../data/transcript.json';
+import { ChalkDefs, CHALK_DASH } from '../components/ChalkDefs';
 
 const theme = THEME.monopoly;
 
@@ -37,14 +38,15 @@ const NodeGraph: React.FC<{ linesFrom: number; warnFrom: number }> = ({ linesFro
 
   return (
     <svg width={1200} height={700} style={{ overflow: 'visible' }}>
+     <ChalkDefs />
       {/* Central "Scaling Laws" node */}
       <circle
-        cx={CENTER.x} cy={CENTER.y} r={70 * centerScale}
-        fill={`${theme.accentColor}22`}
-        stroke={theme.accentColor}
-        strokeWidth={3}
-        style={{ opacity: centerOpacity, filter: `drop-shadow(0 0 30px ${theme.accentColor}88)` }}
-      />
+  cx={CENTER.x} cy={CENTER.y} r={70 * centerScale}
+  fill={`${GRAPH_YELLOW}22`}
+  stroke={GRAPH_YELLOW}
+  strokeWidth={3}
+  style={{ opacity: centerOpacity, filter: `drop-shadow(0 0 30px ${GRAPH_YELLOW}88)` }}
+/>
       <text
         x={CENTER.x} y={CENTER.y + 8} textAnchor="middle"
         fill="#FFFFFF" fontFamily={FONT_DISPLAY} fontWeight={800} fontSize={26}
@@ -61,9 +63,9 @@ const NodeGraph: React.FC<{ linesFrom: number; warnFrom: number }> = ({ linesFro
         const isWarnActive = isClaude && warnLocal >= 0;
 
         const lineColor = isWarnActive
-          ? `rgba(255,${Math.round(120 - warnPulse * 80)},${Math.round(120 - warnPulse * 80)},1)`
-          : theme.accentColor;
-
+  ? `rgba(255,${Math.round(120 - warnPulse * 80)},${Math.round(120 - warnPulse * 80)},1)`
+  : GRAPH_YELLOW;
+      
         // Approx curve length for a clean dash-draw
         const approxLen = Math.hypot(node.pos.x - CENTER.x, node.pos.y - CENTER.y) * 1.25;
         const dashOffset = interpolate(draw, [0, 1], [approxLen, 0]);
@@ -79,29 +81,29 @@ const NodeGraph: React.FC<{ linesFrom: number; warnFrom: number }> = ({ linesFro
         return (
           <React.Fragment key={node.id}>
             <path
-              d={`M ${CENTER.x} ${CENTER.y} Q ${ctrl.x} ${ctrl.y} ${node.pos.x} ${node.pos.y}`}
-              fill="none"
-              stroke={lineColor}
-              strokeWidth={isClaude ? 5 : 3}
-              strokeLinecap="round"
-              strokeDasharray={approxLen}
-              strokeDashoffset={dashOffset}
-              style={{ filter: `drop-shadow(0 0 ${isWarnActive ? 16 : 8}px ${lineColor})` }}
-            />
+  d={`M ${CENTER.x} ${CENTER.y} Q ${ctrl.x} ${ctrl.y} ${node.pos.x} ${node.pos.y}`}
+  fill="none"
+  stroke={lineColor}
+  strokeWidth={isClaude ? 5 : 3}
+  strokeLinecap="round"
+  strokeDasharray={CHALK_DASH}
+  opacity={draw}
+  style={{ filter: `url(#chalkTexture) drop-shadow(0 0 ${isWarnActive ? 16 : 8}px ${lineColor})` }}
+/>
             {draw > 0.98 && (
               <circle
-                cx={pulsePos.x} cy={pulsePos.y} r={6}
-                fill="#FFFFFF"
-                style={{ filter: `drop-shadow(0 0 10px ${lineColor})`, opacity: nodeOpacity }}
-              />
+  cx={pulsePos.x} cy={pulsePos.y} r={6}
+  fill={GRAPH_WHITE}
+  style={{ filter: `drop-shadow(0 0 10px ${lineColor})`, opacity: nodeOpacity }}
+/>
             )}
             <circle
-              cx={node.pos.x} cy={node.pos.y} r={46 * nodeScale}
-              fill={`${theme.accentColor}18`}
-              stroke={isWarnActive ? lineColor : theme.accentColor}
-              strokeWidth={2.5}
-              style={{ opacity: nodeOpacity, filter: `drop-shadow(0 0 18px ${theme.accentColor}55)` }}
-            />
+  cx={node.pos.x} cy={node.pos.y} r={46 * nodeScale}
+  fill={`${GRAPH_YELLOW}18`}
+  stroke={isWarnActive ? lineColor : GRAPH_YELLOW}
+  strokeWidth={2.5}
+  style={{ opacity: nodeOpacity, filter: `drop-shadow(0 0 18px ${GRAPH_YELLOW}55)` }}
+/>
             <text
               x={node.pos.x} y={node.pos.y + 7} textAnchor="middle"
               fill="#FFFFFF" fontFamily={FONT_DISPLAY} fontWeight={700} fontSize={20}
