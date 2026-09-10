@@ -36,7 +36,7 @@ const draw = spring({
   config: SPRINGS.flow,
   durationInFrames: sceneDurationFrames - axisDurationFrames,
 });
-  const draw = spring({ frame, fps, config: SPRINGS.flow, durationInFrames: sceneDurationFrames });
+  
 
   const points = buildScalingCurve(CURVE_POINTS, GRAPH_W, GRAPH_H);
   const path = smoothPath(points);
