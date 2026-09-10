@@ -1,130 +1,146 @@
 import React from 'react';
 import { AbsoluteFill, Audio, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
-import { AuroraBackground } from '../components/AuroraBackground';
+import { SceneBackground } from '../components/SceneBackground';
+import { ChalkDefs } from '../components/ChalkDefs';
 import { THEME, FONT_DISPLAY, FONT_BODY, SPRINGS, msToFrame, GRAPH_YELLOW, GRAPH_WHITE } from '../theme/tokens';
-import { quadPoint } from '../utils/curves';
 import transcriptData from '../data/transcript.json';
-import { ChalkDefs, CHALK_DASH } from '../components/ChalkDefs';
 
 const theme = THEME.monopoly;
 
-// Segments 75–80 — "it sounds like a footnote... but there's a catch nobody's reckoned with yet."
 const PHILOSOPHY_IDS = ['segment_75', 'segment_76', 'segment_77', 'segment_78', 'segment_79', 'segment_80'];
 
 type Segment = { id: string; startMs: number; endMs: number; text: string };
 
-const CENTER = { x: 600, y: 460 };
+const CENTER = { x: 600, y: 520 };
+const CENTER_W = 260;
+const CENTER_H = 120;
+
 const NODES = [
-  { id: 'gpt2', label: 'GPT-2', pos: { x: 260, y: 200 }, appearFrame: 0 },
-  { id: 'gpt3', label: 'GPT-3', pos: { x: 600, y: 120 }, appearFrame: 12 },
-  { id: 'claude', label: 'Claude', pos: { x: 940, y: 200 }, appearFrame: 24 },
+  { id: 'gpt2', label: 'GPT-2', pos: { x: 260, y: 190 }, color: GRAPH_YELLOW, mentionOffsetMs: 4800 },
+  { id: 'gpt3', label: 'GPT-3', pos: { x: 600, y: 130 }, color: GRAPH_YELLOW, mentionOffsetMs: 5350 },
+  { id: 'claude', label: 'CLAUDE', pos: { x: 940, y: 190 }, color: GRAPH_WHITE, mentionOffsetMs: 7140 },
 ];
+const NODE_W = 220;
+const NODE_H = 100;
 
-const ctrlFor = (p: { x: number; y: number }) => ({
-  x: (CENTER.x + p.x) / 2,
-  y: (CENTER.y + p.y) / 2 - 70,
-});
+const DashedLine: React.FC<{
+  from: { x: number; y: number };
+  to: { x: number; y: number };
+  color: string;
+  progress: number;
+}> = ({ from, to, color, progress }) => {
+  const dist = Math.hypot(to.x - from.x, to.y - from.y);
+  const angle = (Math.atan2(to.y - from.y, to.x - from.x) * 180) / Math.PI;
+  const clipId = `clip-${from.x}-${to.x}-${to.y}`;
 
-const NodeGraph: React.FC<{ linesFrom: number; warnFrom: number }> = ({ linesFrom, warnFrom }) => {
+  return (
+    <>
+      <defs>
+        <clipPath id={clipId}>
+          <rect
+            x={from.x} y={from.y - 50}
+            width={Math.max(dist * progress, 0)} height={100}
+            transform={`rotate(${angle} ${from.x} ${from.y})`}
+          />
+        </clipPath>
+        <marker id={`arrow-${clipId}`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill={color} />
+        </marker>
+      </defs>
+      <line
+        x1={from.x} y1={from.y} x2={to.x} y2={to.y}
+        stroke={color}
+        strokeWidth={7}
+        strokeDasharray="22 16"
+        clipPath={`url(#${clipId})`}
+        markerEnd={progress > 0.97 ? `url(#arrow-${clipId})` : undefined}
+        style={{ filter: `url(#chalkTexture) drop-shadow(0 0 12px ${color}aa)` }}
+      />
+    </>
+  );
+};
+
+const CenterNode: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const pop = spring({ frame, fps, config: SPRINGS.rostrum });
+  const scale = interpolate(pop, [0, 1], [0.5, 1]);
+  const opacity = interpolate(pop, [0, 1], [0, 1]);
+
+  return (
+    <g style={{ opacity }} transform={`translate(${CENTER.x} ${CENTER.y}) scale(${scale}) translate(${-CENTER.x} ${-CENTER.y})`}>
+      <rect
+        x={CENTER.x - CENTER_W / 2} y={CENTER.y - CENTER_H / 2}
+        width={CENTER_W} height={CENTER_H} rx={20}
+        fill={`${GRAPH_YELLOW}1a`}
+        stroke={GRAPH_YELLOW} strokeWidth={4}
+        style={{ filter: `drop-shadow(0 0 30px ${GRAPH_YELLOW}88)` }}
+      />
+      <text
+        x={CENTER.x} y={CENTER.y - 6} textAnchor="middle"
+        fill="#FFFFFF" fontFamily={FONT_DISPLAY} fontWeight={900} fontSize={30}
+        style={{ textTransform: 'uppercase' }}
+      >
+        SCALING
+      </text>
+      <text
+        x={CENTER.x} y={CENTER.y + 30} textAnchor="middle"
+        fill="#FFFFFF" fontFamily={FONT_DISPLAY} fontWeight={900} fontSize={30}
+        style={{ textTransform: 'uppercase' }}
+      >
+        LAWS
+      </text>
+    </g>
+  );
+};
+
+const ModelNode: React.FC<{ label: string; pos: { x: number; y: number }; color: string; opacity: number; scale: number }> = ({
+  label, pos, color, opacity, scale,
+}) => (
+  <g style={{ opacity }} transform={`translate(${pos.x} ${pos.y}) scale(${scale}) translate(${-pos.x} ${-pos.y})`}>
+    <rect
+      x={pos.x - NODE_W / 2} y={pos.y - NODE_H / 2}
+      width={NODE_W} height={NODE_H} rx={18}
+      fill="rgba(0,0,0,0.3)"
+      stroke={color} strokeWidth={4}
+      style={{ filter: `drop-shadow(0 0 24px ${color}88)` }}
+    />
+    <text
+      x={pos.x} y={pos.y + 11} textAnchor="middle"
+      fill="#FFFFFF" fontFamily={FONT_DISPLAY} fontWeight={900} fontSize={34}
+      style={{ textTransform: 'uppercase' }}
+    >
+      {label}
+    </text>
+  </g>
+);
+
+const NodeGraph: React.FC<{ nodeFrames: { id: string; frame: number }[] }> = ({ nodeFrames }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const centerPop = spring({ frame, fps, config: SPRINGS.rostrum });
-  const centerScale = interpolate(centerPop, [0, 1], [0.6, 1]);
-  const centerOpacity = interpolate(centerPop, [0, 1], [0, 1]);
-
-  const warnLocal = frame - warnFrom;
-  const warnPulse = warnLocal >= 0 ? (Math.sin(warnLocal / 6) + 1) / 2 : 0;
-
   return (
     <svg width={1200} height={700} style={{ overflow: 'visible' }}>
-     <ChalkDefs />
-      {/* Central "Scaling Laws" node */}
-      <circle
-  cx={CENTER.x} cy={CENTER.y} r={70 * centerScale}
-  fill={`${GRAPH_YELLOW}22`}
-  stroke={GRAPH_YELLOW}
-  strokeWidth={3}
-  style={{ opacity: centerOpacity, filter: `drop-shadow(0 0 30px ${GRAPH_YELLOW}88)` }}
-/>
-      <text
-        x={CENTER.x} y={CENTER.y + 8} textAnchor="middle"
-        fill="#FFFFFF" fontFamily={FONT_DISPLAY} fontWeight={800} fontSize={26}
-        style={{ opacity: centerOpacity }}
-      >
-        Scaling Laws
-      </text>
+      <ChalkDefs />
+      <CenterNode />
 
       {NODES.map((node) => {
-        const local = frame - (linesFrom + node.appearFrame);
-        const draw = spring({ frame: Math.max(local, 0), fps, config: SPRINGS.flow });
-        const ctrl = ctrlFor(node.pos);
-        const isClaude = node.id === 'claude';
-        const isWarnActive = isClaude && warnLocal >= 0;
+        const triggerFrame = nodeFrames.find((n) => n.id === node.id)!.frame;
+        const local = frame - triggerFrame;
+        if (local < 0) return null;
 
-        const lineColor = isWarnActive
-  ? `rgba(255,${Math.round(120 - warnPulse * 80)},${Math.round(120 - warnPulse * 80)},1)`
-  : GRAPH_YELLOW;
-      
-        // Approx curve length for a clean dash-draw
-        const approxLen = Math.hypot(node.pos.x - CENTER.x, node.pos.y - CENTER.y) * 1.25;
-        const dashOffset = interpolate(draw, [0, 1], [approxLen, 0]);
-
-        // Traveling pulse loops continuously once the line has drawn in
-        const loopT = local > 0 ? ((local * 0.012) % 1) : 0;
-        const pulsePos = quadPoint(CENTER, ctrl, node.pos, loopT);
-
-        const nodePop = spring({ frame: Math.max(local, 0), fps, config: SPRINGS.silk });
-        const nodeScale = interpolate(nodePop, [0, 1], [0.5, 1]);
+        const lineProgress = spring({ frame: local, fps, config: SPRINGS.flow, durationInFrames: 18 });
+        const nodePop = spring({ frame: Math.max(local - 14, 0), fps, config: SPRINGS.silk });
+        const nodeScale = interpolate(nodePop, [0, 1], [0.6, 1]);
         const nodeOpacity = interpolate(nodePop, [0, 1], [0, 1]);
 
         return (
           <React.Fragment key={node.id}>
-            <path
-  d={`M ${CENTER.x} ${CENTER.y} Q ${ctrl.x} ${ctrl.y} ${node.pos.x} ${node.pos.y}`}
-  fill="none"
-  stroke={lineColor}
-  strokeWidth={isClaude ? 5 : 3}
-  strokeLinecap="round"
-  strokeDasharray={CHALK_DASH}
-  opacity={draw}
-  style={{ filter: `url(#chalkTexture) drop-shadow(0 0 ${isWarnActive ? 16 : 8}px ${lineColor})` }}
-/>
-            {draw > 0.98 && (
-              <circle
-  cx={pulsePos.x} cy={pulsePos.y} r={6}
-  fill={GRAPH_WHITE}
-  style={{ filter: `drop-shadow(0 0 10px ${lineColor})`, opacity: nodeOpacity }}
-/>
-            )}
-            <circle
-  cx={node.pos.x} cy={node.pos.y} r={46 * nodeScale}
-  fill={`${GRAPH_YELLOW}18`}
-  stroke={isWarnActive ? lineColor : GRAPH_YELLOW}
-  strokeWidth={2.5}
-  style={{ opacity: nodeOpacity, filter: `drop-shadow(0 0 18px ${GRAPH_YELLOW}55)` }}
-/>
-            <text
-              x={node.pos.x} y={node.pos.y + 7} textAnchor="middle"
-              fill="#FFFFFF" fontFamily={FONT_DISPLAY} fontWeight={700} fontSize={20}
-              style={{ opacity: nodeOpacity }}
-            >
-              {node.label}
-            </text>
+            <DashedLine from={CENTER} to={node.pos} color={node.color} progress={lineProgress} />
+            <ModelNode label={node.label} pos={node.pos} color={node.color} opacity={nodeOpacity} scale={nodeScale} />
           </React.Fragment>
         );
       })}
-
-      {/* Warning glyph near center once "the catch" lands */}
-      {warnLocal >= 0 && (
-        <text
-          x={CENTER.x} y={CENTER.y - 100} textAnchor="middle"
-          fontSize={34}
-          style={{ opacity: interpolate(warnPulse, [0, 1], [0.5, 1]) }}
-        >
-          ⚠
-        </text>
-      )}
     </svg>
   );
 };
@@ -141,7 +157,7 @@ const CaptionLine: React.FC<{ text: string }> = ({ text }) => {
       <div style={{
         opacity, transform: `translateY(${y}px)`,
         fontFamily: FONT_BODY, fontWeight: 600, fontSize: 26, color: '#F5F3FF',
-        textAlign: 'center', maxWidth: 1000, textShadow: '0 4px 20px rgba(0,0,0,0.7)',
+        textAlign: 'center', maxWidth: 1000, textShadow: '0 4px 20px rgba(0,0,0,0.8)',
       }}>
         {text}
       </div>
@@ -154,21 +170,21 @@ export const Scene11_ScalingPhilosophy: React.FC = () => {
   const philosophySegments = segments.filter((s) => PHILOSOPHY_IDS.includes(s.id));
   const sceneStart = philosophySegments[0].startMs;
 
-  // Lines start drawing once segment_76 begins ("that single observation...").
-  const linesTrigger = philosophySegments.find((s) => s.id === 'segment_76')!;
-  const linesFrom = msToFrame(linesTrigger.startMs - sceneStart);
-
-  // "The catch" warning kicks in at segment_80.
-  const warnTrigger = philosophySegments.find((s) => s.id === 'segment_80')!;
-  const warnFrom = msToFrame(warnTrigger.startMs - sceneStart);
+  // Approximate mention timing within segment_77 — replace with real
+  // word-level timestamps once Whisper output is available.
+  const mentionBase = philosophySegments.find((s) => s.id === 'segment_77')!.startMs;
+  const nodeFrames = NODES.map((n) => ({
+    id: n.id,
+    frame: msToFrame(mentionBase + n.mentionOffsetMs - sceneStart),
+  }));
 
   return (
     <AbsoluteFill>
       <Audio src={staticFile('audio/dariovoiceover.mp3')} startFrom={msToFrame(sceneStart)} />
-      <AuroraBackground from={theme.bgFrom} to={theme.bgTo} />
+      <SceneBackground />
 
-      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 40 }}>
-        <NodeGraph linesFrom={linesFrom} warnFrom={warnFrom} />
+      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
+        <NodeGraph nodeFrames={nodeFrames} />
       </AbsoluteFill>
 
       {philosophySegments.map((seg) => {
