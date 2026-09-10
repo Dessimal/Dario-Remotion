@@ -28,3 +28,16 @@ export const buildScalingCurve = (count: number, width: number, height: number) 
   }
   return pts;
 };
+
+// Point at position t (0–1) along a quadratic bezier — used for traveling
+// pulses/dots that move along a curved connector line.
+export const quadPoint = (
+  p0: { x: number; y: number },
+  ctrl: { x: number; y: number },
+  p1: { x: number; y: number },
+  t: number
+) => {
+  const x = (1 - t) ** 2 * p0.x + 2 * (1 - t) * t * ctrl.x + t ** 2 * p1.x;
+  const y = (1 - t) ** 2 * p0.y + 2 * (1 - t) * t * ctrl.y + t ** 2 * p1.y;
+  return { x, y };
+};
