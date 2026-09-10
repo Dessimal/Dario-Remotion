@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, Img, Sequence, spring, staticFile, useCurrentFrame
 import { THEME, FONT_DISPLAY, FONT_BODY, SPRINGS, msToFrame } from '../theme/tokens';
 import { smoothPath, buildScalingCurve } from '../utils/curves';
 import transcriptData from '../data/transcript.json';
+import { SceneBackground } from '../components/SceneBackground';
 
 const theme = THEME.monopoly; // cyan accent — the "big idea" scene
 
@@ -144,12 +145,7 @@ export const Scene10_ScalingLaws: React.FC = () => {
     <AbsoluteFill>
       <Audio src={staticFile('audio/dariovoiceover.mp3')} startFrom={msToFrame(sceneStart)} />
 
-      <Img
-        src={staticFile('scenes/scene10/background.jpeg')}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute' }}
-      />
-      {/* Legibility scrim — background.png could be anything, so we protect the graph/captions */}
-      <AbsoluteFill style={{ background: 'rgba(8,6,20,0.55)' }} />
+      <SceneBackground />
 
       <Sequence from={titleFrame} layout="none">
         <TitleReveal />
