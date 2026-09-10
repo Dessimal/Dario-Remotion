@@ -2,6 +2,11 @@
 
 export const FONT_DISPLAY = '"Poppins", "Montserrat", sans-serif';
 export const FONT_BODY = '"Inter", "Poppins", sans-serif';
+// Dedicated graph palette — used only for line/data-viz elements, independent
+// of each scene's theme.accentColor so recoloring graphs doesn't ripple
+// into chips, badges, or other UI elements.
+export const GRAPH_YELLOW = '#FFD400';
+export const GRAPH_WHITE = '#FFFFFF';
 
 export const THEME = {
   monopoly: {
