@@ -9,7 +9,7 @@ import { Scene03_Bumper } from './scenes/Scene03_Bumper';
 import { Scene04_Origins } from './scenes/Scene04_Origins';
 import { Scene10_ScalingLaws } from './scenes/Scene10_ScalingLaws';
 import { Scene11_ScalingPhilosophy } from './scenes/Scene11_ScalingPhilosophy';
-// ...
+import { Scene12_ValuationChart } from './scenes/Scene12_ValuationChart';
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -67,7 +67,7 @@ export const RemotionRoot: React.FC = () => {
     <Composition id="Scene04Origins" component={Scene04_Origins} durationInFrames={1055} fps={30} width={1920} height={1080} />
     <Composition id="Scene10ScalingLaws" component={Scene10_ScalingLaws} durationInFrames={1694} fps={30} width={1920} height={1080} />
       <Composition id="Scene11ScalingPhilosophy" component={Scene11_ScalingPhilosophy} durationInFrames={910} fps={30} width={1920} height={1080} />
-
+<Composition id="Scene12ValuationChart" component={Scene12_ValuationChart} durationInFrames={100} fps={30} width={1920} height={1080} />
 
       {/* Mount any React component to make it show up in the sidebar and work on it individually! */}
       <Composition
