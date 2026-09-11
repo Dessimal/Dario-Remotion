@@ -11,7 +11,7 @@ const PHILOSOPHY_IDS = ['segment_75', 'segment_76', 'segment_77', 'segment_78', 
 
 type Segment = { id: string; startMs: number; endMs: number; text: string };
 
-const CENTER = { x: 600, y: 520 };
+const CENTER = { x: 600, y: 420 };
 const CENTER_W = 260;
 const CENTER_H = 120;
 
