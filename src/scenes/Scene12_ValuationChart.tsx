@@ -66,21 +66,23 @@ const Bar: React.FC<{ name: string; value: number; color: string; x: number; isL
   return (
     <div style={{ position: 'absolute', left: x, bottom: 0, width: BAR_W, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div
-        style={{
-          opacity: rise > 0.05 ? 1 : 0,
-          fontFamily: FONT_DISPLAY,
-          fontWeight: 800,
-          fontSize: 20,
-          color: '#FFFFFF',
-          marginBottom: 8,
-          transform: `translateY(${-height}px)`,
-          position: 'absolute',
-          bottom: 0,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        ${value}B
-      </div>
+  style={{
+    opacity: rise > 0.05 ? 1 : 0,
+    fontFamily: FONT_DISPLAY,
+    fontWeight: 900,
+    fontSize: 26,
+    color: '#FFFFFF',
+    marginBottom: 10,
+    transform: `translateY(${-height}px)`,
+    position: 'absolute',
+    bottom: 0,
+    whiteSpace: 'nowrap',
+    textShadow: '0 2px 8px rgba(0,0,0,0.6)',
+  }}
+>
+  ${value}B
+</div>
+      
       <div
         style={{
           width: '100%',
@@ -92,16 +94,19 @@ const Bar: React.FC<{ name: string; value: number; color: string; x: number; isL
         }}
       />
       <div style={{
-        marginTop: 12,
-        fontFamily: FONT_DISPLAY,
-        fontWeight: 700,
-        fontSize: 15,
-        color: isLast ? '#FFD400' : 'rgba(255,255,255,0.75)',
-        textAlign: 'center',
-        lineHeight: 1.3,
-      }}>
-        {name}
-      </div>
+  marginTop: 14,
+  fontFamily: FONT_DISPLAY,
+  fontWeight: 900,
+  fontSize: 22,
+  color: isLast ? '#FFD400' : '#FFFFFF',
+  textAlign: 'center',
+  lineHeight: 1.25,
+  textTransform: 'uppercase',
+  letterSpacing: 0.5,
+  textShadow: '0 2px 6px rgba(0,0,0,0.6)',
+}}>
+  {name}
+</div>
     </div>
   );
 };
