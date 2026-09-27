@@ -10,6 +10,8 @@ import { Scene10_ScalingLaws } from '../src/scenes/Scene10_ScalingLaws';
 import { Scene11_ScalingPhilosophy } from '../src/scenes/Scene11_ScalingPhilosophy';
 import { Scene12_ValuationChart } from '../src/scenes/Scene12_ValuationChart';
 import { Demo_GlassHomeIcon } from '../src/scenes/Demo_GlassHomeIcon';
+import { Demo_NewspaperRoll } from '../src/scenes/Demo_NewspaperRoll';
+
 
 const SCENES = {
   Scene01Intro: { component: Scene01_Intro, durationInFrames: 534 },
@@ -20,7 +22,7 @@ const SCENES = {
   Scene11ScalingPhilosophy: { component: Scene11_ScalingPhilosophy, durationInFrames: 910 },
 Scene12ValuationChart: { component: Scene12_ValuationChart, durationInFrames: 100 },
 DemoGlassHomeIcon: { component: Demo_GlassHomeIcon, durationInFrames: 150 },
-  
+ DemoNewspaperRoll: { component: Demo_NewspaperRoll, durationInFrames: 140 }, 
   
   // add each new scene here as we build it
 } as const;
