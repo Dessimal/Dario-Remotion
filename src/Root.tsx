@@ -11,7 +11,7 @@ import { Scene10_ScalingLaws } from './scenes/Scene10_ScalingLaws';
 import { Scene11_ScalingPhilosophy } from './scenes/Scene11_ScalingPhilosophy';
 import { Scene12_ValuationChart } from './scenes/Scene12_ValuationChart';
 import { Demo_GlassHomeIcon } from './scenes/Demo_GlassHomeIcon';
-
+import { Demo_NewspaperRoll } from './scenes/Demo_NewspaperRoll';
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -72,6 +72,7 @@ export const RemotionRoot: React.FC = () => {
 <Composition id="Scene12ValuationChart" component={Scene12_ValuationChart} durationInFrames={100} fps={30} width={1920} height={1080} />
 <Composition id="DemoGlassHomeIcon" component={Demo_GlassHomeIcon} durationInFrames={150} fps={30} width={1920} height={1080} />
       {/* Mount any React component to make it show up in the sidebar and work on it individually! */}
+    <Composition id="DemoNewspaperRoll" component={Demo_NewspaperRoll} durationInFrames={140} fps={30} width={1920} height={1080} />
       <Composition
         id="OnlyLogo"
         component={Logo}
