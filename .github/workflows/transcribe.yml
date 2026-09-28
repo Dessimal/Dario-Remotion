@@ -1,0 +1,36 @@
+name: Transcribe Voiceover
+
+on:
+  workflow_dispatch:
+
+jobs:
+  transcribe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Whisper
+        run: pip install openai-whisper
+
+      - name: Run Whisper with word timestamps
+        run: whisper public/audio/dariovoiceover.mp3 --model small --word_timestamps True --output_format json --output_dir ./whisper_output
+
+      - name: Convert to project schema
+        run: python scripts/convert_words.py
+
+      - name: Commit transcript_words.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/transcript_words.json
+          git commit -m "Add word-level transcript via Whisper" || echo "Nothing to commit"
+          git push
