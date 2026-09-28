@@ -1,0 +1,33 @@
+name: Chroma Key Batch
+
+on:
+  workflow_dispatch:
+
+jobs:
+  chromakey:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install sharp
+        run: npm install sharp --save-dev
+
+      - name: Run chroma-key batch script
+        run: node scripts/chroma-key-batch.mjs
+
+      - name: Commit keyed images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/assets/keyed
+          git commit -m "Batch chroma-key raw images" || echo "Nothing to commit"
+          git push
