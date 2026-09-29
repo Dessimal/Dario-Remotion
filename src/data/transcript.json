@@ -1,0 +1,670 @@
+{
+  "segments": [
+    {
+      "id": "segment_1",
+      "startMs": 0,
+      "endMs": 5420,
+      "text": "What if one of the most important companies and artificial intelligence was never supposed"
+    },
+    {
+      "id": "segment_2",
+      "startMs": 5420,
+      "endMs": 7160,
+      "text": "to exist?"
+    },
+    {
+      "id": "segment_3",
+      "startMs": 7160,
+      "endMs": 11760,
+      "text": "Not because it failed or because it ran out of money, but because for a brief moment"
+    },
+    {
+      "id": "segment_4",
+      "startMs": 11760,
+      "endMs": 17800,
+      "text": "in history, almost every door on earth was slammed shut in its face."
+    },
+    {
+      "id": "segment_5",
+      "startMs": 17800,
+      "endMs": 23140,
+      "text": "This is the story of a physicist who wasn't supposed to end up building AI, who helped"
+    },
+    {
+      "id": "segment_6",
+      "startMs": 23140,
+      "endMs": 25760,
+      "text": "create a technology so persuasive,"
+    },
+    {
+      "id": "segment_7",
+      "startMs": 25760,
+      "endMs": 31160,
+      "text": "it scared its own inventors, who walked away from one of the best jobs in tech at the"
+    },
+    {
+      "id": "segment_8",
+      "startMs": 31160,
+      "endMs": 37900,
+      "text": "exact moment it started paying off, and who bet everything. His career, his reputation,"
+    },
+    {
+      "id": "segment_9",
+      "startMs": 37900,
+      "endMs": 42800,
+      "text": "his sister's future, on a company nobody thought would survive."
+    },
+    {
+      "id": "segment_10",
+      "startMs": 42800,
+      "endMs": 47000,
+      "text": "If stories of mere collapse, high stakes bets, and the people quietly"
+    },
+    {
+      "id": "segment_11",
+      "startMs": 47000,
+      "endMs": 52000,
+      "text": "shaping the future of technology are your kind of thing, subscribe to the black box report."
+    },
+    {
+      "id": "segment_12",
+      "startMs": 52000,
+      "endMs": 58000,
+      "text": "That's how you'll catch every documentary the moment it drops. Now, back to the story."
+    },
+    {
+      "id": "segment_13",
+      "startMs": 58000,
+      "endMs": 65280,
+      "text": "To understand why Dario walked away, you have to go back. Back to a kid in San Francisco,"
+    },
+    {
+      "id": "segment_14",
+      "startMs": 65280,
+      "endMs": 67120,
+      "text": "who wasn't even supposed to be interested"
+    },
+    {
+      "id": "segment_15",
+      "startMs": 67120,
+      "endMs": 68800,
+      "text": "in computers at all."
+    },
+    {
+      "id": "segment_16",
+      "startMs": 68800,
+      "endMs": 72760,
+      "text": "Dario's story, or should I say, and Thropic story,"
+    },
+    {
+      "id": "segment_17",
+      "startMs": 72760,
+      "endMs": 76320,
+      "text": "begins in 1983, San Francisco."
+    },
+    {
+      "id": "segment_18",
+      "startMs": 76320,
+      "endMs": 79840,
+      "text": "A boy is born to an Italian-American leather craftsman"
+    },
+    {
+      "id": "segment_19",
+      "startMs": 79840,
+      "endMs": 83640,
+      "text": "and a Jewish American mother who managed library projects."
+    },
+    {
+      "id": "segment_20",
+      "startMs": 83640,
+      "endMs": 86680,
+      "text": "His name is Dario Amade."
+    },
+    {
+      "id": "segment_21",
+      "startMs": 86680,
+      "endMs": 91200,
+      "text": "Nothing about his childhood suggests he'll one day run one of the most powerful technology"
+    },
+    {
+      "id": "segment_22",
+      "startMs": 91200,
+      "endMs": 93160,
+      "text": "companies on the planet."
+    },
+    {
+      "id": "segment_23",
+      "startMs": 93160,
+      "endMs": 97960,
+      "text": "He's not a coder, he's not tinkering with computers in a garage, he's obsessed with"
+    },
+    {
+      "id": "segment_24",
+      "startMs": 97960,
+      "endMs": 99520,
+      "text": "something older."
+    },
+    {
+      "id": "segment_25",
+      "startMs": 99520,
+      "endMs": 101320,
+      "text": "And in some ways harder."
+    },
+    {
+      "id": "segment_26",
+      "startMs": 101320,
+      "endMs": 102800,
+      "text": "Physics."
+    },
+    {
+      "id": "segment_27",
+      "startMs": 102800,
+      "endMs": 105840,
+      "text": "While the rest of Silicon Valley is losing its mind over the dot"
+    },
+    {
+      "id": "segment_28",
+      "startMs": 105840,
+      "endMs": 112800,
+      "text": "kombu, a teenage dario barely notices. He's got his head buried in equations. By the"
+    },
+    {
+      "id": "segment_29",
+      "startMs": 112800,
+      "endMs": 119120,
+      "text": "year 2000, he's good enough to make the US physics Olympiad team. One of the most elite academic"
+    },
+    {
+      "id": "segment_30",
+      "startMs": 119120,
+      "endMs": 127500,
+      "text": "honors a high schooler in America can arm. He heads to Stanford, and later Princeton, chasing a PhD not in computer science,"
+    },
+    {
+      "id": "segment_31",
+      "startMs": 127500,
+      "endMs": 129000,
+      "text": "but in biophysics."
+    },
+    {
+      "id": "segment_32",
+      "startMs": 129000,
+      "endMs": 133000,
+      "text": "Specifically, the electrical activity of neural circuits."
+    },
+    {
+      "id": "segment_33",
+      "startMs": 133000,
+      "endMs": 137000,
+      "text": "He's trying to understand how biological brains compute."
+    },
+    {
+      "id": "segment_34",
+      "startMs": 137000,
+      "endMs": 140000,
+      "text": "Here's the twist nobody saw coming."
+    },
+    {
+      "id": "segment_35",
+      "startMs": 140000,
+      "endMs": 144000,
+      "text": "The tools he was learning to study biological intelligence"
+    },
+    {
+      "id": "segment_36",
+      "startMs": 144000,
+      "endMs": 146480,
+      "text": "are about to become the exact tools the world uses to study biological intelligence are about to become the exact tools"
+    },
+    {
+      "id": "segment_37",
+      "startMs": 146480,
+      "endMs": 149680,
+      "text": "the world uses to build artificial intelligence."
+    },
+    {
+      "id": "segment_38",
+      "startMs": 149680,
+      "endMs": 155160,
+      "text": "He doesn't know it yet, but the skill set he's building, statistical modeling of neural"
+    },
+    {
+      "id": "segment_39",
+      "startMs": 155160,
+      "endMs": 161320,
+      "text": "circuits, is about to become the single most valuable skill set on Earth."
+    },
+    {
+      "id": "segment_40",
+      "startMs": 161320,
+      "endMs": 168320,
+      "text": "And that's when everything changes. After his PhD, Dario leaves academia. Not because"
+    },
+    {
+      "id": "segment_41",
+      "startMs": 168320,
+      "endMs": 174400,
+      "text": "the science stops interesting him, but because he realizes the resources to push AI forward"
+    },
+    {
+      "id": "segment_42",
+      "startMs": 174400,
+      "endMs": 180480,
+      "text": "aren't in university labs anymore. They're in corporate ones. He's weighing Google, which"
+    },
+    {
+      "id": "segment_43",
+      "startMs": 180480,
+      "endMs": 186440,
+      "text": "has deep pockets, and just acquired Deep mind. When word reaches him about something stranger,"
+    },
+    {
+      "id": "segment_44",
+      "startMs": 186440,
+      "endMs": 189800,
+      "text": "the Chinese search giant Baidu has handed"
+    },
+    {
+      "id": "segment_45",
+      "startMs": 189800,
+      "endMs": 192400,
+      "text": "a hundred million dollar research budget"
+    },
+    {
+      "id": "segment_46",
+      "startMs": 192400,
+      "endMs": 196280,
+      "text": "to a single renowned AI scientist Andrew Ng"
+    },
+    {
+      "id": "segment_47",
+      "startMs": 196280,
+      "endMs": 200280,
+      "text": "and told him to build a super team from scratch."
+    },
+    {
+      "id": "segment_48",
+      "startMs": 200280,
+      "endMs": 203760,
+      "text": "Dario applies and when his application lands"
+    },
+    {
+      "id": "segment_49",
+      "startMs": 203760,
+      "endMs": 206680,
+      "text": "on the desk of Baidu's team, it confuses"
+    },
+    {
+      "id": "segment_50",
+      "startMs": 206680,
+      "endMs": 207680,
+      "text": "them."
+    },
+    {
+      "id": "segment_51",
+      "startMs": 207680,
+      "endMs": 210440,
+      "text": "His resume doesn't look like the others."
+    },
+    {
+      "id": "segment_52",
+      "startMs": 210440,
+      "endMs": 212880,
+      "text": "It's not a machine learning background."
+    },
+    {
+      "id": "segment_53",
+      "startMs": 212880,
+      "endMs": 220640,
+      "text": "It's biology, neural circuits, biophysics, a Ph.D. spent studying how brains, not computers,"
+    },
+    {
+      "id": "segment_54",
+      "startMs": 220640,
+      "endMs": 222400,
+      "text": "process information."
+    },
+    {
+      "id": "segment_55",
+      "startMs": 222400,
+      "endMs": 225740,
+      "text": "On paper, he looks like the wrong hire."
+    },
+    {
+      "id": "segment_56",
+      "startMs": 225740,
+      "endMs": 227780,
+      "text": "They take a chance on him anyway."
+    },
+    {
+      "id": "segment_57",
+      "startMs": 227780,
+      "endMs": 233640,
+      "text": "It will turn out to be one of the more consequential bets in the history of the field."
+    },
+    {
+      "id": "segment_58",
+      "startMs": 233640,
+      "endMs": 238620,
+      "text": "Inside Baidu Silicon Valley Lab, Dario becomes part of the team building something called"
+    },
+    {
+      "id": "segment_59",
+      "startMs": 238620,
+      "endMs": 245360,
+      "text": "Deep Speech 2, an AI system that learns to transcribe both English and Mandarin from scratch"
+    },
+    {
+      "id": "segment_60",
+      "startMs": 245360,
+      "endMs": 250000,
+      "text": "without the hand-built rules that speech recognition had always relied on before."
+    },
+    {
+      "id": "segment_61",
+      "startMs": 250000,
+      "endMs": 256000,
+      "text": "It works so well that MIT Technology Review names it one of the top breakthroughs of that year."
+    },
+    {
+      "id": "segment_62",
+      "startMs": 256000,
+      "endMs": 263000,
+      "text": "But the discovery that actually changes the direction of Dario's entire career isn't the product itself."
+    },
+    {
+      "id": "segment_63",
+      "startMs": 263000,
+      "endMs": 267680,
+      "text": "It's something that data quietly reveals along the way."
+    },
+    {
+      "id": "segment_64",
+      "startMs": 267680,
+      "endMs": 273120,
+      "text": "As the team throws more computing power, more data, and bigger models at the problem,"
+    },
+    {
+      "id": "segment_65",
+      "startMs": 273120,
+      "endMs": 275480,
+      "text": "something strange keeps happening."
+    },
+    {
+      "id": "segment_66",
+      "startMs": 275480,
+      "endMs": 281000,
+      "text": "Performance doesn't just improve, it improves in smooth, predictable curves."
+    },
+    {
+      "id": "segment_67",
+      "startMs": 281000,
+      "endMs": 284720,
+      "text": "Bigger, in a very literal sense, means better."
+    },
+    {
+      "id": "segment_68",
+      "startMs": 284720,
+      "endMs": 286080,
+      "text": "Every time."
+    },
+    {
+      "id": "segment_69",
+      "startMs": 286080,
+      "endMs": 290440,
+      "text": "Dario later says watching those trends emerge had a profound effect on him."
+    },
+    {
+      "id": "segment_70",
+      "startMs": 290440,
+      "endMs": 295120,
+      "text": "It's an early glimpse of what the industry will eventually call \"scaling laws\"."
+    },
+    {
+      "id": "segment_71",
+      "startMs": 295120,
+      "endMs": 300080,
+      "text": "The idea that you don't necessarily need a brilliant new algorithm to make AI dramatically"
+    },
+    {
+      "id": "segment_72",
+      "startMs": 300080,
+      "endMs": 301080,
+      "text": "more capable."
+    },
+    {
+      "id": "segment_73",
+      "startMs": 301080,
+      "endMs": 303920,
+      "text": "You just need to make everything bigger."
+    },
+    {
+      "id": "segment_74",
+      "startMs": 303920,
+      "endMs": 306640,
+      "text": "More data, more compute, more parameters,"
+    },
+    {
+      "id": "segment_75",
+      "startMs": 306640,
+      "endMs": 312480,
+      "text": "and the results follow, almost like clockwork. It sounds like a footnote, but it's not."
+    },
+    {
+      "id": "segment_76",
+      "startMs": 313120,
+      "endMs": 319280,
+      "text": "That single observation, that scale alone can make AI radically more powerful,"
+    },
+    {
+      "id": "segment_77",
+      "startMs": 319280,
+      "endMs": 327040,
+      "text": "is about to become the philosophy behind GPT-2, GPT-3, and eventually claw it itself."
+    },
+    {
+      "id": "segment_78",
+      "startMs": 327040,
+      "endMs": 329680,
+      "text": "It's the reason the AI industry starts racing"
+    },
+    {
+      "id": "segment_79",
+      "startMs": 329680,
+      "endMs": 333360,
+      "text": "to build bigger and bigger models in the first place,"
+    },
+    {
+      "id": "segment_80",
+      "startMs": 333360,
+      "endMs": 336960,
+      "text": "but there's a catch nobody's fully reckoned with yet."
+    },
+    {
+      "id": "segment_81",
+      "startMs": 336960,
+      "endMs": 340800,
+      "text": "If making AI more powerful really is that simple,"
+    },
+    {
+      "id": "segment_82",
+      "startMs": 340800,
+      "endMs": 344040,
+      "text": "just add more scale, then the next question"
+    },
+    {
+      "id": "segment_83",
+      "startMs": 344040,
+      "endMs": 346800,
+      "text": "becomes impossible to avoid."
+    },
+    {
+      "id": "segment_84",
+      "startMs": 346800,
+      "endMs": 348780,
+      "text": "How far can that go?"
+    },
+    {
+      "id": "segment_85",
+      "startMs": 348780,
+      "endMs": 352300,
+      "text": "And who gets to decide when it's gone too far?"
+    },
+    {
+      "id": "segment_86",
+      "startMs": 352300,
+      "endMs": 374880,
+      "text": "Dario leaves by a strange, new naive sounding mission, which was"
+    },
+    {
+      "id": "segment_87",
+      "startMs": 374880,
+      "endMs": 381000,
+      "text": "to build artificial general intelligence safely for the benefit of humanity."
+    },
+    {
+      "id": "segment_88",
+      "startMs": 381000,
+      "endMs": 383680,
+      "text": "Its name, OpenAI."
+    },
+    {
+      "id": "segment_89",
+      "startMs": 383680,
+      "endMs": 385360,
+      "text": "He rises fast."
+    },
+    {
+      "id": "segment_90",
+      "startMs": 385360,
+      "endMs": 390320,
+      "text": "By the late 2010s, he's vice president of research, one of the most senior scientists"
+    },
+    {
+      "id": "segment_91",
+      "startMs": 390320,
+      "endMs": 391720,
+      "text": "at the company."
+    },
+    {
+      "id": "segment_92",
+      "startMs": 391720,
+      "endMs": 397440,
+      "text": "And in 2019, his team finishes something that will change the course of his life."
+    },
+    {
+      "id": "segment_93",
+      "startMs": 397440,
+      "endMs": 399360,
+      "text": "They call it GPT2."
+    },
+    {
+      "id": "segment_94",
+      "startMs": 399360,
+      "endMs": 405040,
+      "text": "It can write coherent news articles, essays, even fiction."
+    },
+    {
+      "id": "segment_95",
+      "startMs": 405040,
+      "endMs": 410360,
+      "text": "Text so convincing that human readers often can't tell it was written by a machine."
+    },
+    {
+      "id": "segment_96",
+      "startMs": 410360,
+      "endMs": 412240,
+      "text": "It sounds like science fiction."
+    },
+    {
+      "id": "segment_97",
+      "startMs": 412240,
+      "endMs": 414080,
+      "text": "It sounds exciting."
+    },
+    {
+      "id": "segment_98",
+      "startMs": 414080,
+      "endMs": 418880,
+      "text": "But what happens next would set the tone for the rest of Dario's career."
+    },
+    {
+      "id": "segment_99",
+      "startMs": 418880,
+      "endMs": 422320,
+      "text": "Open AI doesn't release GPT-2."
+    },
+    {
+      "id": "segment_100",
+      "startMs": 422320,
+      "endMs": 427360,
+      "text": "At least not the full version. They call it too dangerous, worried it could be"
+    },
+    {
+      "id": "segment_101",
+      "startMs": 427360,
+      "endMs": 433680,
+      "text": "weaponized for propaganda, spam, and disinformation at a scale no one had ever dealt with before."
+    },
+    {
+      "id": "segment_102",
+      "startMs": 434560,
+      "endMs": 440320,
+      "text": "Dario is one of the researchers pushing hardest for caution. He believes the world isn't ready."
+    },
+    {
+      "id": "segment_103",
+      "startMs": 441200,
+      "endMs": 446960,
+      "text": "The tech world rolls its eyes. Critics call it a publicity stunt, a company hyping its"
+    },
+    {
+      "id": "segment_104",
+      "startMs": 446960,
+      "endMs": 454240,
+      "text": "own product by pretending it's too scary to share. Nine months later, open AI quietly releases"
+    },
+    {
+      "id": "segment_105",
+      "startMs": 454240,
+      "endMs": 460960,
+      "text": "the full model anyway. The internet doesn't end. For most people, that's the end of the story,"
+    },
+    {
+      "id": "segment_106",
+      "startMs": 461520,
+      "endMs": 465360,
+      "text": "a footnote, a weird moment in 2019."
+    },
+    {
+      "id": "segment_107",
+      "startMs": 465360,
+      "endMs": 467860,
+      "text": "For Dario, it's the opposite."
+    },
+    {
+      "id": "segment_108",
+      "startMs": 467860,
+      "endMs": 472560,
+      "text": "It's the moment a question lodges itself permanently in his brain."
+    },
+    {
+      "id": "segment_109",
+      "startMs": 472560,
+      "endMs": 478160,
+      "text": "What happens when the model that's too dangerous isn't a publicity stunt, when it's"
+    },
+    {
+      "id": "segment_110",
+      "startMs": 478160,
+      "endMs": 479640,
+      "text": "real?"
+    },
+    {
+      "id": "segment_111",
+      "startMs": 479640,
+      "endMs": 486120,
+      "text": "He doesn't know it yet, but that single question is about to cost him his job, his team,"
+    }
+  ]
+}
