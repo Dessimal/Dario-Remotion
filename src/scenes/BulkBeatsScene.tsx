@@ -1,18 +1,18 @@
-import transcriptData from '../data/transcript.json';
-import { msToFrame } from '../theme/tokens';
+import transcriptWords from '../data/transcript_words.json';
 
-type Segment = { id: string; startMs: number; endMs: number };
+type Word = { id: string; startMs: number; endMs: number; text: string };
 
 export const BulkBeatsScene: React.FC = () => {
-  const { segments } = transcriptData as { segments: Segment[] };
+  const { words } = transcriptWords as { words: Word[] };
   let cursor = 0;
 
   return (
     <AbsoluteFill>
       <SceneBackground />
       {BEATS.map((beat) => {
-        const seg = segments.find((s) => s.id === beat.segmentId)!;
-        const holdFrames = msToFrame(seg.endMs - seg.startMs);
+        const startWord = words.find((w) => w.id === beat.startWordId)!;
+        const endWord = words.find((w) => w.id === beat.endWordId)!;
+        const holdFrames = msToFrame(endWord.endMs - startWord.startMs);
         const duration = 50 + holdFrames; // 50 = enter+exit frames from BeatCard
         const from = cursor;
         cursor += duration;
