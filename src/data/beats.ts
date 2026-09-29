@@ -2,9 +2,11 @@ export type Direction = 'bl-br' | 'br-bl' | 'tl-tr' | 'tr-tl';
 
 export type Beat = {
   id: string;
-  image: string;        // filename inside public/assets/keyed/
-  direction: Direction; // enter corner → exit corner
-  holdFrames: number;   // how long it stays on screen
+  image: string;
+  direction: Direction;
+  startWordId: string; // e.g. 'word_142'
+  endWordId: string;   // e.g. 'word_158'
+  sfx?: 'standard' | 'impact';
   caption?: string;
 };
 
