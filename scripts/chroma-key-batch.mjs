@@ -4,73 +4,63 @@ import path from 'path';
 
 const INPUT_DIR = 'public/assets/raw';
 const OUTPUT_DIR = 'public/assets/keyed';
-const THRESHOLD = 85;
-const FEATHER = 35;
-const SPILL_STRENGTH = 0.6; // 0 = no spill suppression, 1 = fully desaturate green on edges
-const ERODE_PASSES = 2;     // how many 1px erosion passes — higher = more fringe removed, but can eat fine hair detail
 
 
+    const HUE_CENTER = 120;      // green, in degrees (0–360)
+const HUE_RANGE = 45;        // how wide a hue window counts as "green"
+const MIN_SATURATION = 0.18; // below this, treat as neutral/gray — protects skin, hair, halftone dots from false-matching
+const SPILL_STRENGTH = 0.5;
+
+function rgbToHsv(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const delta = max - min;
+  let h = 0;
+  if (delta !== 0) {
+    if (max === r) h = 60 * (((g - b) / delta) % 6);
+    else if (max === g) h = 60 * ((b - r) / delta + 2);
+    else h = 60 * ((r - g) / delta + 4);
+  }
+  if (h < 0) h += 360;
+  const s = max === 0 ? 0 : delta / max;
+  const v = max;
+  return [h, s, v];
+}
 
 async function keyImage(filePath, outPath) {
   const image = sharp(filePath).ensureAlpha();
   const { data, info } = await image.raw().toBuffer({ resolveWithObject: true });
   const { width, height, channels } = info;
 
-  const sampleIdx = (5 * width + 5) * channels;
-  const keyR = data[sampleIdx];
-  const keyG = data[sampleIdx + 1];
-  const keyB = data[sampleIdx + 2];
-
-  // Pass 1: alpha + spill suppression
   for (let i = 0; i < data.length; i += channels) {
     const r = data[i], g = data[i + 1], b = data[i + 2];
-    const dist = Math.sqrt((r - keyR) ** 2 + (g - keyG) ** 2 + (b - keyB) ** 2);
+    const [h, s] = rgbToHsv(r, g, b);
 
-    if (dist < THRESHOLD) {
-      data[i + 3] = 0;
-    } else if (dist < THRESHOLD + FEATHER) {
-      data[i + 3] = ((dist - THRESHOLD) / FEATHER) * 255;
+    const hueDist = Math.min(Math.abs(h - HUE_CENTER), 360 - Math.abs(h - HUE_CENTER));
+
+    // "Greenness" score: only counts if hue is near green AND it's
+    // actually saturated (not gray/white/skin — those have low saturation
+    // regardless of hue, so this protects the subject even where halftone
+    // dots create noisy, low-saturation texture on clothing/skin).
+    let greenness = 0;
+    if (s > MIN_SATURATION && hueDist < HUE_RANGE) {
+      greenness = (1 - hueDist / HUE_RANGE) * Math.min(s / MIN_SATURATION, 1);
     }
 
-    // Spill suppression: if green is notably higher than red/blue,
-    // pull it down toward the average — kills the green edge tint
-    // without discarding the pixel entirely.
-    const maxRB = Math.max(r, b);
-    if (g > maxRB) {
-      const excess = g - maxRB;
-      data[i + 1] = g - excess * SPILL_STRENGTH;
-    }
-  }
+    data[i + 3] = Math.round((1 - greenness) * 255);
 
-  // Pass 2: erode the alpha mask inward by ERODE_PASSES pixels —
-  // discards the thin ring of worst-contaminated edge pixels entirely,
-  // same effect as CapCut's "clean up edge".
-  for (let pass = 0; pass < ERODE_PASSES; pass++) {
-    const alphaCopy = new Uint8ClampedArray(data.length / channels);
-    for (let p = 0; p < alphaCopy.length; p++) alphaCopy[p] = data[p * channels + 3];
-
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const idx = y * width + x;
-        if (alphaCopy[idx] === 0) continue;
-
-        // If any neighbor is fully transparent, this edge pixel shrinks too
-        const neighbors = [
-          x > 0  ? alphaCopy[idx - 1] : 255,
-          x < width - 1 ? alphaCopy[idx + 1] : 255,
-          y > 0  ? alphaCopy[idx - width] : 255,
-          y < height - 1 ? alphaCopy[idx + width] : 255,
-        ];
-        if (neighbors.some((n) => n === 0)) {
-          data[idx * channels + 3] = 0;
-        }
+    // Spill suppression, proportional to greenness rather than a hard cutoff
+    if (greenness > 0) {
+      const maxRB = Math.max(r, b);
+      if (g > maxRB) {
+        data[i + 1] = g - (g - maxRB) * SPILL_STRENGTH * greenness;
       }
     }
   }
 
   await sharp(data, { raw: { width, height, channels } }).png().toFile(outPath);
-}
-
+                                                                      }
+    
 
 
 async function run() {
