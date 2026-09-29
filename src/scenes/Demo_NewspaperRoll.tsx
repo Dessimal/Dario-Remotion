@@ -40,9 +40,9 @@ export const Demo_NewspaperRoll: React.FC = () => {
   return (
     <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
       {/* SFX Elements */}
-      <Audio src={staticFile('audio/sfx/whoosh-in.mp3')} startFrom={0} volume={2.5} />
+      <Audio src={staticFile('audio/SFX/whoosh-in.mp3')} startFrom={0} volume={2.5} />
       <Sequence from={HOLD_END}>
-        <Audio src={staticFile('audio/sfx/whoosh-out.mp3')} volume={2.5} />
+        <Audio src={staticFile('audio/SFX/whoosh-out.mp3')} volume={2.5} />
       </Sequence>
 
       <SceneBackground />
