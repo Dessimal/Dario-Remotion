@@ -5,27 +5,12 @@ import path from 'path';
 const INPUT_DIR = 'public/assets/raw';
 const OUTPUT_DIR = 'public/assets/keyed';
 
-
-    const HUE_CENTER = 120;      // green, in degrees (0–360)
-const HUE_RANGE = 45;        // how wide a hue window counts as "green"
-const MIN_SATURATION = 0.18; // below this, treat as neutral/gray — protects skin, hair, halftone dots from false-matching
-const SPILL_STRENGTH = 0.5;
-
-function rgbToHsv(r, g, b) {
-  r /= 255; g /= 255; b /= 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  const delta = max - min;
-  let h = 0;
-  if (delta !== 0) {
-    if (max === r) h = 60 * (((g - b) / delta) % 6);
-    else if (max === g) h = 60 * ((b - r) / delta + 2);
-    else h = 60 * ((r - g) / delta + 4);
-  }
-  if (h < 0) h += 360;
-  const s = max === 0 ? 0 : delta / max;
-  const v = max;
-  return [h, s, v];
-}
+// How much greener a pixel is than its own red/blue channels.
+// Below DIFF_LOW -> fully opaque (subject). Above DIFF_HIGH -> fully
+// transparent (background). Between the two -> soft feathered edge.
+const DIFF_LOW = 8;
+const DIFF_HIGH = 45;
+const SPILL_STRENGTH = 0.5; // 0 = no spill suppression, 1 = fully neutralize green tint on edges
 
 async function keyImage(filePath, outPath) {
   const image = sharp(filePath).ensureAlpha();
@@ -33,35 +18,29 @@ async function keyImage(filePath, outPath) {
   const { width, height, channels } = info;
 
   for (let i = 0; i < data.length; i += channels) {
-    const r = data[i], g = data[i + 1], b = data[i + 2];
-    const [h, s] = rgbToHsv(r, g, b);
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    const diff = g - Math.max(r, b);
 
-    const hueDist = Math.min(Math.abs(h - HUE_CENTER), 360 - Math.abs(h - HUE_CENTER));
-
-    // "Greenness" score: only counts if hue is near green AND it's
-    // actually saturated (not gray/white/skin — those have low saturation
-    // regardless of hue, so this protects the subject even where halftone
-    // dots create noisy, low-saturation texture on clothing/skin).
-    let greenness = 0;
-    if (s > MIN_SATURATION && hueDist < HUE_RANGE) {
-      greenness = (1 - hueDist / HUE_RANGE) * Math.min(s / MIN_SATURATION, 1);
+    let alpha = 255;
+    if (diff > DIFF_HIGH) {
+      alpha = 0;
+    } else if (diff > DIFF_LOW) {
+      alpha = 255 * (1 - (diff - DIFF_LOW) / (DIFF_HIGH - DIFF_LOW));
     }
+    data[i + 3] = Math.round(alpha);
 
-    data[i + 3] = Math.round((1 - greenness) * 255);
-
-    // Spill suppression, proportional to greenness rather than a hard cutoff
-    if (greenness > 0) {
-      const maxRB = Math.max(r, b);
-      if (g > maxRB) {
-        data[i + 1] = g - (g - maxRB) * SPILL_STRENGTH * greenness;
-      }
+    // Spill suppression: pull green down toward neutral on any pixel
+    // that's greener than it should be, proportional to how green it is.
+    if (diff > 0) {
+      const spillFactor = Math.min(diff / DIFF_HIGH, 1) * SPILL_STRENGTH;
+      data[i + 1] = g - diff * spillFactor;
     }
   }
 
   await sharp(data, { raw: { width, height, channels } }).png().toFile(outPath);
-                                                                      }
-    
-
+}
 
 async function run() {
   await mkdir(OUTPUT_DIR, { recursive: true });
