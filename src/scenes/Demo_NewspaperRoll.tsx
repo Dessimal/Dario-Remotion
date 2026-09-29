@@ -1,7 +1,8 @@
 import React from 'react';
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, Audio, Sequence, staticFile, Easing, interpolate, useCurrentFrame } from 'remotion';
 import { ChromaKeyImage } from '../components/ChromaKeyImage';
 import { SceneBackground } from '../components/SceneBackground';
+
 // Timeline (30fps): enter 0–25, hold 25–115 (3s), exit 115–140.
 const ENTER_END = 25;
 const HOLD_END = ENTER_END + 90;
@@ -38,7 +39,13 @@ export const Demo_NewspaperRoll: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
-  <SceneBackground />
+      {/* SFX Elements */}
+      <Audio src={staticFile('audio/sfx/whoosh-in.mp3')} startFrom={0} volume={0.6} />
+      <Sequence from={HOLD_END}>
+        <Audio src={staticFile('audio/sfx/whoosh-out.mp3')} volume={0.6} />
+      </Sequence>
+
+      <SceneBackground />
       <div style={{ transform: `translate(${x}px, ${y}px) rotate(${rotate}deg)` }}>
         <ChromaKeyImage
           src="assets/Baidu_opens_Silicon_Valley_lab_20260915042249.jpeg"
@@ -48,3 +55,4 @@ export const Demo_NewspaperRoll: React.FC = () => {
     </AbsoluteFill>
   );
 };
+  
